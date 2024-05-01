@@ -28,7 +28,7 @@ function Signup() {
   const handleSubmit = (values, { resetForm }) => {
     setIsSubmitting(true);
     axios
-      .post("http://localhost:8000/sign-up", values)
+      .post(`${process.env.REACT_APP_API_URL}/sign-up`, values)
       .then((response) => {
         if (response.status === 201) {
           console.log(response);

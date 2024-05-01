@@ -28,7 +28,7 @@ function ResetPassword() {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        `http://localhost:8000/reset-password/${token}`,
+        `${process.env.REACT_APP_API_URL}/reset-password/${token}`,
         values
       );
       if (response.status === 200) {

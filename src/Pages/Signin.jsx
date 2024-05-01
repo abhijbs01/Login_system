@@ -29,7 +29,7 @@ function Signin() {
     setIsSubmitting(true);
     axios.defaults.withCredentials = true;
     axios
-      .post("http://localhost:8000/login", values)
+      .post(`${process.env.REACT_APP_API_URL}/login`, values)
       .then((response) => {
         if (response.status === 200) {
           setIsSubmitting(false);

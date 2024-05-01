@@ -7,7 +7,7 @@ function Home() {
   const navigate = useNavigate();
   const handleLogout = () => {
     axios
-      .get("http://localhost:8000/logout")
+      .get(`${process.env.REACT_APP_API_URL}/logout`)
       .then((res) => {
         if (res.data.status) {
           navigate("/signin");

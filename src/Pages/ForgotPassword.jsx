@@ -25,7 +25,7 @@ function ForgotPassword() {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        "http://localhost:8000/forgot-password",
+        `${process.env.REACT_APP_API_URL}/forgot-password`,
         values
       );
       if (response.status === 200) {
