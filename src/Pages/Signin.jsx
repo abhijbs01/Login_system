@@ -35,7 +35,6 @@ function Signin() {
           resetForm();
           navigate("/home");
         } else {
-          // Handle unexpected status codes
           toast.error("Unexpected response from server");
         }
       })
@@ -43,14 +42,11 @@ function Signin() {
         setIsSubmitting(false);
         if (error.response) {
           if (error.response.status === 401 || error.response.status === 404) {
-            // Handle specific error status codes
             toast.error(error.response.data.message);
           } else {
-            // Handle other errors (e.g., network issues)
             toast.error("An error occurred. Please try again later.");
           }
         } else {
-          // Handle errors without a response (e.g., network timeout)
           toast.error("Network error. Please check your internet connection.");
         }
       });
