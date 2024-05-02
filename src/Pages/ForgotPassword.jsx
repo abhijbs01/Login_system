@@ -23,28 +23,31 @@ function ForgotPassword() {
 
   const handleSubmit = async (values, { resetForm }) => {
     setIsSubmitting(true);
-    try {
-      const response = await axios.post(
+    await axios
+      .post(
         `${process.env.REACT_APP_API_URL}/forgot-password`,
+        // "http://localhost:8000/forgot-password",
         values
-      );
-      if (response.status === 200) {
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          setIsSubmitting(false);
+          resetForm();
+          toast.success(response.data.message);
+        }
+      })
+      .catch((error) => {
         setIsSubmitting(false);
-        resetForm();
-        toast.success(response.data.message);
-      }
-    } catch (error) {
-      setIsSubmitting(false);
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        toast.error(error.response.data.message);
-      } else {
-        toast.error("An error occurred while processing your request.");
-      }
-    }
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error("An error occurred while processing your request.");
+        }
+      });
   };
 
   return (

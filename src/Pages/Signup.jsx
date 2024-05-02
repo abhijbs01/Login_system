@@ -28,7 +28,11 @@ function Signup() {
   const handleSubmit = async (values, { resetForm }) => {
     setIsSubmitting(true);
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/sign-up`, values);
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/sign-up`,
+        // "http://localhost:8000/sign-up"
+        values
+      );
       if (response.status === 201) {
         console.log(response);
         setIsSubmitting(false);
@@ -46,7 +50,6 @@ function Signup() {
       }
     }
   };
-  
 
   return (
     <Container maxWidth="xs">

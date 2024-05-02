@@ -12,6 +12,7 @@ function Dashboard() {
         axios.defaults.withCredentials = true;
         const response = await axios.get(
           `${process.env.REACT_APP_API_URL}/verify`
+          // `http://localhost:8000/verify`
         );
 
         if (response.data.status) {

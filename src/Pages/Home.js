@@ -9,7 +9,10 @@ function Home() {
 
   const handleLogout = () => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/logout`)
+      .get(
+        // `${process.env.REACT_APP_API_URL}/logout`
+        `http://localhost:8000/logout`
+      )
       .then((res) => {
         if (res.data.status) {
           navigate("/signin");
