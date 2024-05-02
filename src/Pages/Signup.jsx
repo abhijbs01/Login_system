@@ -25,25 +25,28 @@ const SignupSchema = Yup.object().shape({
 function Signup() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (values, { resetForm }) => {
+  const handleSubmit = async (values, { resetForm }) => {
     setIsSubmitting(true);
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/sign-up`, values)
-      .then((response) => {
-        if (response.status === 201) {
-          console.log(response);
-          setIsSubmitting(false);
-          resetForm();
-          toast.success(response.data.message);
-        }
-      })
-      .catch((error) => {
-        if (error.response.status === 400) {
-          setIsSubmitting(false);
-          toast.error(error.response.data.message);
-        }
-      });
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/sign-up`, values);
+      if (response.status === 201) {
+        console.log(response);
+        setIsSubmitting(false);
+        resetForm();
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        setIsSubmitting(false);
+        toast.error(error.response.data.message);
+      } else {
+        setIsSubmitting(false);
+        toast.error("An unexpected error occurred.");
+        console.error("Error:", error);
+      }
+    }
   };
+  
 
   return (
     <Container maxWidth="xs">
