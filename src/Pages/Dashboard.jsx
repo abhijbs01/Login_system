@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Dashboard() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchAuthorization = async () => {
       try {
@@ -19,11 +21,19 @@ function Dashboard() {
         }
       } catch (error) {
         console.error("Error:", error);
+        alert("An error occurred while checking authorization. Please try again later.");
         navigate("/");
+      } finally {
+        setLoading(false);
       }
     };
+    
     fetchAuthorization();
   }, [navigate]);
+
+  if (loading) {
+    return <div>Loading...</div>; 
+  }
 
   return (
     <>

@@ -43,13 +43,16 @@ function ResetPassword() {
         } else {
           toast.error("An unexpected error occurred. Please try again later.");
         }
-      } else {
+      } else if (error.request) {
         toast.error("Network error. Please check your internet connection.");
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
       }
     } finally {
       setIsSubmitting(false);
     }
   };
+  
 
   return (
     <Container maxWidth="xs">
