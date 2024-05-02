@@ -28,8 +28,7 @@ function Signin() {
     console.log(values);
     setIsSubmitting(true);
     axios.defaults.withCredentials = true;
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/login`, values)
+    axios.post(`${process.env.REACT_APP_API_URL}/login`, values)
       .then((response) => {
         if (response.status === 200) {
           setIsSubmitting(false);
