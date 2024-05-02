@@ -10,8 +10,8 @@ function Home() {
   const handleLogout = () => {
     axios
       .get(
-        // `${process.env.REACT_APP_API_URL}/logout`
-        `http://localhost:8000/logout`
+        `${process.env.REACT_APP_API_URL}/logout`
+        // `http://localhost:8000/logout`
       )
       .then((res) => {
         if (res.data.status) {
@@ -20,7 +20,6 @@ function Home() {
       })
       .catch((error) => {
         console.error(error);
-        // Display an error message to the user
         alert("An error occurred while logging out. Please try again later.");
       });
   };
