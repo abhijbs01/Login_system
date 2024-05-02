@@ -30,22 +30,32 @@ function Signin() {
     axios.defaults.withCredentials = true;
     axios.post(`${process.env.REACT_APP_API_URL}/login`, values)
       .then((response) => {
+        setIsSubmitting(false);
         if (response.status === 200) {
-          setIsSubmitting(false);
           resetForm();
-          navigate("/home")
+          navigate("/home");
+        } else {
+          // Handle unexpected status codes
+          toast.error("Unexpected response from server");
         }
       })
       .catch((error) => {
-        if (error.response.status === 401) {
-          setIsSubmitting(false);
-          toast.error(error.response.data.message);
-        } else if (error.response.status === 404) {
-          setIsSubmitting(false);
-          toast.error(error.response.data.message);
+        setIsSubmitting(false);
+        if (error.response) {
+          if (error.response.status === 401 || error.response.status === 404) {
+            // Handle specific error status codes
+            toast.error(error.response.data.message);
+          } else {
+            // Handle other errors (e.g., network issues)
+            toast.error("An error occurred. Please try again later.");
+          }
+        } else {
+          // Handle errors without a response (e.g., network timeout)
+          toast.error("Network error. Please check your internet connection.");
         }
       });
   };
+  
 
   return (
     <Container maxWidth="xs">
